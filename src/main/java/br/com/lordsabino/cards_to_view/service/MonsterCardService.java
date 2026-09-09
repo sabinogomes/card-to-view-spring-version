@@ -5,6 +5,7 @@ import br.com.lordsabino.cards_to_view.repository.MonsterCardRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MonsterCardService {
@@ -23,5 +24,14 @@ public class MonsterCardService {
         return repository.findAll();
     }
 
+    public Optional<MonsterCard> findMonsterById(Long id) {
+        return repository.findById(id);
+    }
 
+    public void deleteMonster(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Id is null");
+        }
+        repository.deleteById(id);
+    }
 }
