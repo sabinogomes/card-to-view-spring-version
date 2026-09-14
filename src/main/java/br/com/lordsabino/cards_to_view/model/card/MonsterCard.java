@@ -5,23 +5,48 @@ import br.com.lordsabino.cards_to_view.model.enums.CardType;
 import br.com.lordsabino.cards_to_view.model.enums.MonsterAttribute;
 import br.com.lordsabino.cards_to_view.model.enums.MonsterRace;
 import br.com.lordsabino.cards_to_view.model.enums.MonsterType;
-
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
+@Entity
+@Table(name = "monster_card")
+@PrimaryKeyJoinColumn(name = "card_id")
+@DiscriminatorValue("MONSTER")
 public class MonsterCard extends Card {
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "attribute", nullable = false, length = 20)
     private MonsterAttribute attribute;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "race", nullable = false, length = 30)
     private MonsterRace race;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "monster_card_type", joinColumns = @JoinColumn(name = "monster_card_id"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false, length = 20)
     private Set<MonsterType> types;
 
+    @Column(name = "level", nullable = false)
     private Integer level;
 
+    @Column(name = "attack", nullable = false)
     private Integer attack;
 
+    @Column(name = "defense", nullable = false)
     private Integer defense;
 
     public MonsterCard() {
