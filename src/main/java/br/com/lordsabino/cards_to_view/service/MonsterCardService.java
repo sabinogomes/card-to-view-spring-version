@@ -1,6 +1,6 @@
 package br.com.lordsabino.cards_to_view.service;
 
-import br.com.lordsabino.cards_to_view.model.MonsterCard;
+import br.com.lordsabino.cards_to_view.model.card.MonsterCard;
 import br.com.lordsabino.cards_to_view.repository.MonsterCardRepository;
 import org.springframework.stereotype.Service;
 
